@@ -1,0 +1,23 @@
+[package]
+name = "convolve-image"
+version = "0.1.0"
+edition = "2021"
+authors = ["Anshul Sanghi <anshul@anshulsanghi.tech>"]
+description = "A small library to perform convolution operations on images with arbitrarily-sized separable kernels"
+homepage = "https://github.com/anshap1719/convolve-image"
+repository = "https://github.com/anshap1719/convolve-image"
+keywords = ["image", "convolution", "kernel", "analysis"]
+categories = ["multimedia"]
+license = "Apache-2.0"
+readme = "./README.md"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+image = "0.25.1"
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+opt-level = 3
