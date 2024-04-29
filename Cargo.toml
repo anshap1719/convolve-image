@@ -1,6 +1,6 @@
 [package]
 name = "convolve-image"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 authors = ["Anshul Sanghi <anshul@anshulsanghi.tech>"]
 description = "A small library to perform convolution operations on images with arbitrarily-sized separable kernels"
