@@ -3,6 +3,8 @@ pub mod convolve;
 
 #[cfg(feature = "image")]
 pub mod image;
+#[cfg(feature = "image")]
+pub(crate) mod iter;
 
 #[cfg(feature = "ndarray")]
 pub mod ndarray;
