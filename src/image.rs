@@ -38,7 +38,7 @@ impl Convolution for ImageBuffer<Luma<f32>, Vec<f32>> {
                     KERNEL_SIZE,
                     relative_kernel_index,
                     y as usize,
-                    self.width() as usize
+                    self.height() as usize
                 );
 
                 pixel_sum += self.get_pixel(x, pixel_index).0[0] * value;
@@ -86,7 +86,7 @@ impl Convolution for ImageBuffer<Rgb<f32>, Vec<f32>> {
                     KERNEL_SIZE,
                     relative_kernel_index,
                     y as usize,
-                    self.width() as usize
+                    self.height() as usize
                 );
 
                 let mut computed_values = self.get_pixel(x, pixel_index).0;

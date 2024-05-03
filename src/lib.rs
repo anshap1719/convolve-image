@@ -11,4 +11,6 @@ pub mod ndarray;
 #[cfg(feature = "ndarray")]
 pub(crate) mod dimensions;
 
+pub mod rescale;
+
 pub use convolve::Convolution;
