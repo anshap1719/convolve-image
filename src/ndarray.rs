@@ -1,9 +1,36 @@
 #![cfg(feature = "ndarray")]
 
-use ndarray::{Array2, Array3};
+use ndarray::{Array1, Array2, Array3};
 use crate::Convolution;
 use crate::kernel::SeparableKernel;
 use crate::dimensions::DimensionIterator;
+
+impl Convolution for Array1<f32> {
+    fn convolve<const KERNEL_SIZE: usize>(&mut self, kernel: SeparableKernel<KERNEL_SIZE>, stride: usize) {
+        let linear_kernel = kernel.values();
+
+        let sample_length = self.len();
+        
+        for index in 0..sample_length {
+            let mut pixel_sum = 0.;
+
+            for (kernel_index, value) in linear_kernel.iter().enumerate() {
+                let relative_kernel_index = kernel_index as isize - (KERNEL_SIZE as isize / 2);
+                let pixel_index = Self::compute_pixel_index(
+                    stride,
+                    KERNEL_SIZE,
+                    relative_kernel_index,
+                    index,
+                    sample_length
+                );
+
+                pixel_sum += self[pixel_index as usize] * *value;
+            }
+
+            self[index] = pixel_sum;
+        }
+    }
+}
 
 impl Convolution for Array2<f32> {
     fn convolve<const KERNEL_SIZE: usize>(&mut self, kernel: SeparableKernel<KERNEL_SIZE>, stride: usize) {
@@ -74,7 +101,7 @@ impl Convolution for Array3<f32> {
                 pixel_sum += self[[y, pixel_index as usize, channel]] * *value;
             }
 
-            self[[y, x, channel]] = pixel_sum;   
+            self[[y, x, channel]] = pixel_sum;
         }
 
         for (y, x, channel) in dimensions.into_iter() {
