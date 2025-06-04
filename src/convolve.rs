@@ -1,6 +1,6 @@
-use crate::kernel::{SeparableKernel};
+use crate::kernel::Kernel;
 
-pub trait Convolution {
+pub trait Convolution where Self: Sized {
     fn compute_pixel_index(
         stride: usize,
         kernel_size: usize,
@@ -27,7 +27,7 @@ pub trait Convolution {
 
     fn convolve<const KERNEL_SIZE: usize>(
         &mut self,
-        kernel: SeparableKernel<KERNEL_SIZE>,
+        kernel: impl Kernel<KERNEL_SIZE, Self>,
         stride: usize,
     );
 }
